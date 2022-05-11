@@ -230,6 +230,20 @@ var saveTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+var loadTasks = function() {
+    // Gets task items from localStorage
+    var savedTasks = localStorage.getItem("tasks");
+    if (saveTasks === null) {
+        return false;
+    }
+    // Converts tasks from the string format back into an array of objects
+    savedTasks = JSON.parse(savedTasks);
+    //Iterates through a tasks array and creates tasks elements on the page from it
+    for (var i = 0; i < savedTasks.length; i++) {
+        createTaskEl(savedTasks[i]);
+    }
+}
+
 // Create a new task
 formEl.addEventListener("submit", taskFormHandler);
 
@@ -238,3 +252,5 @@ pageContentEl.addEventListener("click", taskButtonHandler);
 
 // for changing the status
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks();
